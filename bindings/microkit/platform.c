@@ -31,11 +31,16 @@ const struct mft *microkit_manifest(void)
 
 void platform_exit(int status, void *cookie __attribute__((unused)))
 {
-    (void)status;
-    for (;;) {
-        seL4_Word badge;
-        (void)seL4_Recv(MICROKIT_INPUT_CAP, &badge, MICROKIT_REPLY_CAP);
-    }
+    // @gt ?? no_return, let the PD fault at a 'status' address
+    uintptr_t fault_addr = (unsigned int)status;
+#if defined(__aarch64__)
+    __asm__ __volatile__("str xzr, [%0]" : : "r"(fault_addr) : "memory");
+#elif defined(__x86_64__)
+    __asm__ __volatile__("movl $0, (%0)" : : "r"(fault_addr) : "memory");
+#else
+#error Unsupported architecture
+#endif
+    /* place of no return */
 }
 
 int platform_puts(const char *buf, int n)
