@@ -1,23 +1,6 @@
 #include "bindings.h"
 #include <microkit.h>
 
-/* Solo5 and sDDF use incompatible internal _assert_fail() signatures. */
-#undef assert
-#define _assert_fail sddf_assert_fail
-#include <sddf/serial/config.h>
-#include <sddf/serial/queue.h>
-#undef _assert_fail
-#undef assert
-
-void sddf_assert_fail(const char *assertion, const char *file,
-        unsigned int line, const char *function)
-{
-    (void)file;
-    (void)line;
-    (void)function;
-    PANIC(assertion, NULL);
-}
-
 // Also declare in .lds to not make it an orphan section.
 __attribute__((section(".serial_client_config"), used))
 static serial_client_config_t serial_config;

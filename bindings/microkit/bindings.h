@@ -9,6 +9,15 @@
 #ifndef __MKT_BINDINGS_H__
 #define __MKT_BINDINGS_H__
 
+// @gt ?? assert conflict?
+#define _assert_fail sddf_assert_fail
+#include <sddf/serial/config.h>
+#include <sddf/serial/queue.h>
+#include <sddf/timer/client.h>
+#include <sddf/timer/config.h>
+#undef assert
+#undef _assert_fail
+
 #include "../bindings.h"
 #include "mkt_abi.h"
 #include <sel4/sel4.h>

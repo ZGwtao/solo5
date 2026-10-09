@@ -13,6 +13,16 @@ seL4_Word microkit_notifications;
 seL4_Word microkit_pps;
 seL4_Word microkit_ioports;
 
+/* Bridge the assertion ABI used by inline sDDF interfaces to Solo5. */
+void sddf_assert_fail(const char *assertion, const char *file,
+        unsigned int line, const char *function)
+{
+    (void)file;
+    (void)line;
+    (void)function;
+    PANIC(assertion, NULL);
+}
+
 void microkit_dbg_putc(int c)
 {
     seL4_DebugPutChar(c);
