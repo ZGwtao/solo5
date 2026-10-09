@@ -22,3 +22,17 @@ solo5_time_t sddf_timer_monotonic(void)
         PANIC("sDDF timer is not initialized", NULL);
     return sddf_timer_time_now(timer_channel);
 }
+
+void sddf_timer_set_timeout_ns(solo5_time_t timeout)
+{
+    if (!timer_ready)
+        PANIC("sDDF timer is not initialized", NULL);
+    sddf_timer_set_timeout(timer_channel, timeout);
+}
+
+seL4_Word sddf_timer_event_mask(void)
+{
+    if (!timer_ready)
+        PANIC("sDDF timer is not initialized", NULL);
+    return 1ULL << timer_channel;
+}
