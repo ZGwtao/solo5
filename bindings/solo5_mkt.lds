@@ -104,6 +104,10 @@ SECTIONS {
     {
         KEEP(*(.timer_client_config))
     } :data
+    .net_client_config :
+    {
+        KEEP(*(.net_client_config))
+    } :data
     .data :
     {
         *(.data)
