@@ -49,6 +49,10 @@ spt_SRCS := spt/start.c \
     spt/bindings.c spt/block.c spt/net.c spt/platform.c \
     spt/sys_linux_$(CONFIG_TARGET_ARCH).c
 
+mkt_SRCS := microkit/start.c \
+    microkit/bindings.c microkit/block.c microkit/net.c microkit/platform.c \
+    abort.c crt.c printf.c lib.c mem.c exit.c log.c cmdline.c tls.c mft.c
+
 virtio_SRCS := virtio/boot.S virtio/start.c $(common_SRCS) \
     virtio/platform.c virtio/platform_intr.c \
     virtio/pci.c virtio/serial.c virtio/time.c virtio/virtio_ring.c \
@@ -134,6 +138,17 @@ solo5_spt.o: $(spt_OBJS)
     all_TARGETS += solo5_spt.o
     all_OBJS += $(spt_OBJS)
     all_SRCS += $(spt_SRCS)
+endif
+
+ifdef CONFIG_MKT
+    mkt_OBJS := $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(mkt_SRCS)))
+
+solo5_mkt.o: $(mkt_OBJS)
+	$(LINK.bindings)
+
+    all_TARGETS += solo5_mkt.o
+    all_OBJS += $(mkt_OBJS)
+    all_SRCS += $(mkt_SRCS)
 endif
 
 ifdef CONFIG_VIRTIO

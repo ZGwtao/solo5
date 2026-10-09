@@ -121,7 +121,7 @@ ifdef CONFIG_VIRTIO
 endif
 
 PUBLIC_HEADERS := include/elf_abi.h include/hvt_abi.h include/mft_abi.h \
-    include/spt_abi.h include/solo5.h
+    include/mkt_abi.h include/spt_abi.h include/solo5.h
 
 .PHONY: install-headers
 install-headers: MAKECMDGOALS :=
@@ -155,6 +155,10 @@ endif
 ifdef CONFIG_SPT
 	$(INSTALL) -m 0644 bindings/solo5_spt.o $(TOOLCHAIN_LIBDIR)
 	$(INSTALL) -m 0644 bindings/solo5_spt.lds $(TOOLCHAIN_LIBDIR)
+endif
+ifdef CONFIG_MKT
+	$(INSTALL) -m 0644 bindings/solo5_mkt.o $(TOOLCHAIN_LIBDIR)
+	$(INSTALL) -m 0644 bindings/solo5_mkt.lds $(TOOLCHAIN_LIBDIR)
 endif
 ifdef CONFIG_VIRTIO
 	$(INSTALL) -m 0644 bindings/solo5_virtio.o $(TOOLCHAIN_LIBDIR)
