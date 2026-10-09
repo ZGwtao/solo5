@@ -108,6 +108,10 @@ SECTIONS {
     {
         KEEP(*(.net_client_config))
     } :data
+    .blk_client_config :
+    {
+        KEEP(*(.blk_client_config))
+    } :data
     .data :
     {
         *(.data)
