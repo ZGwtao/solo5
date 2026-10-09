@@ -50,7 +50,7 @@ const char *platform_cmdline(void)
 
 uint64_t platform_mem_size(void)
 {
-    return MICROKIT_HEAP_BASE + MICROKIT_HEAP_SIZE;
+    return microkit_heap_base + microkit_heap_size;
 }
 
 struct mft *microkit_manifest(void)

@@ -88,7 +88,8 @@ void sddf_timer_set_timeout_ns(solo5_time_t timeout);
 
 solo5_handle_set_t sddf_net_poll(void);
 
-#define MICROKIT_HEAP_BASE 0x200000000ULL
-#define MICROKIT_HEAP_SIZE 0x4000000ULL
+/* Patched from the heap mapping by the Microkit image tool. */
+extern uintptr_t microkit_heap_base;
+extern size_t microkit_heap_size;
 
 #endif /* __MKT_BINDINGS_H__ */
