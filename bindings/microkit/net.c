@@ -59,11 +59,3 @@ solo5_result_t solo5_net_write(solo5_handle_t handle, const uint8_t *buf,
 
     return (nbytes == (int)size) ? SOLO5_R_OK : SOLO5_R_EUNSPEC;
 }
-
-void solo5_yield(solo5_time_t deadline, solo5_handle_set_t *ready_set)
-{
-    // TODO
-    // not sure about this yield...
-    // is it like yield the sandbox and let other sandbox run
-    // or is it just yield a coroutine within the sandbox?
-}
