@@ -21,7 +21,10 @@ $(TOPDIR)/Makeconf:
 	$(error Makeconf not found, please run ./configure.sh)
 include Makefile.common
 
-SUBDIRS := tenders
+SUBDIRS :=
+ifndef CONFIG_DISABLE_TENDERS
+SUBDIRS += tenders
+endif
 ifndef CONFIG_DISABLE_ELFTOOL
 SUBDIRS += elftool
 endif
