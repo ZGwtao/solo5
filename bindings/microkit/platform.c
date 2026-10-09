@@ -40,7 +40,7 @@ void platform_exit(int status, void *cookie __attribute__((unused)))
 #else
 #error Unsupported architecture
 #endif
-    /* place of no return */
+    __builtin_unreachable();
 }
 
 int platform_puts(const char *buf, int n)
