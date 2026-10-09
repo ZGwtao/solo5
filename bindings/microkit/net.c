@@ -35,12 +35,12 @@ solo5_result_t solo5_net_read(solo5_handle_t handle, uint8_t *buf, size_t size,
 
     // TODO
     long nbytes = 0;
-    if (nbytes < 0) {
-        if (nbytes == SYS_EAGAIN)
-            return SOLO5_R_AGAIN;
-        else
-            return SOLO5_R_EUNSPEC;
-    }
+    // if (nbytes < 0) {
+    //     if (nbytes == SYS_EAGAIN)
+    //         return SOLO5_R_AGAIN;
+    //     else
+    //         return SOLO5_R_EUNSPEC;
+    // }
 
     *read_size = (size_t)nbytes;
     return SOLO5_R_OK;
