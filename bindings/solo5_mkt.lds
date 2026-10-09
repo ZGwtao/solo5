@@ -112,6 +112,10 @@ SECTIONS {
     {
         KEEP(*(.blk_client_config))
     } :data
+    .solo5_cmdline :
+    {
+        KEEP(*(.solo5_cmdline))
+    } :data
     .data :
     {
         *(.data)
