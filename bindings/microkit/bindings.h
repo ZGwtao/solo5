@@ -81,6 +81,8 @@ const struct mft *microkit_manifest(void);
 
 int sddf_serial_init(void);
 int sddf_serial_write(const char *buf, int n);
+int sddf_timer_init(void);
+solo5_time_t sddf_timer_monotonic(void);
 
 #define MICROKIT_HEAP_BASE 0x200000000ULL
 #define MICROKIT_HEAP_SIZE 0x4000000ULL

@@ -10,6 +10,7 @@ void platform_init(const void *arg)
 {
     (void)arg;
     assert(sddf_serial_init() == 0);
+    assert(sddf_timer_init() == 0);
 }
 
 const char *platform_cmdline(void)

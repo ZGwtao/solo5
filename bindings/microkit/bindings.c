@@ -12,8 +12,7 @@ void solo5_console_write(const char *buf, size_t size)
 
 solo5_time_t solo5_clock_monotonic(void)
 {
-    // TODO
-    return 0;
+    return sddf_timer_monotonic();
 }
 
 solo5_time_t solo5_clock_wall(void)

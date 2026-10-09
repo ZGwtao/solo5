@@ -100,6 +100,10 @@ SECTIONS {
     {
         KEEP(*(.serial_client_config))
     } :data
+    .timer_client_config :
+    {
+        KEEP(*(.timer_client_config))
+    } :data
     .data :
     {
         *(.data)
