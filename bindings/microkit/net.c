@@ -28,6 +28,8 @@ solo5_result_t solo5_net_acquire(const char *name, solo5_handle_t *handle,
 solo5_result_t solo5_net_read(solo5_handle_t handle, uint8_t *buf, size_t size,
                               size_t *read_size)
 {
+    (void)buf;
+    (void)size;
     const struct mft_entry *e =
         mft_get_by_index(mft, handle, MFT_DEV_NET_BASIC);
     if (e == NULL)
@@ -49,6 +51,7 @@ solo5_result_t solo5_net_read(solo5_handle_t handle, uint8_t *buf, size_t size,
 solo5_result_t solo5_net_write(solo5_handle_t handle, const uint8_t *buf,
                                size_t size)
 {
+    (void)buf;
     const struct mft_entry *e =
         mft_get_by_index(mft, handle, MFT_DEV_NET_BASIC);
     if (e == NULL)
