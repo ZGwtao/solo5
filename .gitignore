@@ -10,6 +10,7 @@ include/version.h
 tests/*/*.stub
 tests/*/*.hvt
 tests/*/*.spt
+tests/*/*.mkt
 tests/*/*.virtio
 tests/*/*.muen
 tests/*/*.xen
