@@ -11,6 +11,7 @@
 
 #include "../bindings.h"
 #include "mkt_abi.h"
+#include <sel4/sel4.h>
 
 // #define SYS_STDOUT 1
 
@@ -62,9 +63,13 @@
 
 // #define SYS_ARCH_SET_FS 0x1002
 
-long sys_arch_prctl(long code, long addr);
+void block_init(void);
+void net_init(void);
+const struct mft *microkit_manifest(void);
 
-void block_init(struct mkt_boot_info *arg);
-void net_init(struct mkt_boot_info *arg);
+#define MICROKIT_INPUT_CAP 1
+#define MICROKIT_REPLY_CAP 4
+#define MICROKIT_HEAP_BASE 0x200000000ULL
+#define MICROKIT_HEAP_SIZE 0x4000000ULL
 
 #endif /* __MKT_BINDINGS_H__ */

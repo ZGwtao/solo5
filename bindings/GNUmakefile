@@ -51,7 +51,8 @@ spt_SRCS := spt/start.c \
 
 mkt_SRCS := microkit/start.c \
     microkit/bindings.c microkit/block.c microkit/net.c microkit/platform.c \
-    abort.c crt.c printf.c lib.c mem.c exit.c log.c cmdline.c tls.c mft.c
+    microkit/memory.c microkit/yield.c \
+    abort.c crt.c printf.c lib.c exit.c log.c cmdline.c tls.c mft.c
 
 virtio_SRCS := virtio/boot.S virtio/start.c $(common_SRCS) \
     virtio/platform.c virtio/platform_intr.c \

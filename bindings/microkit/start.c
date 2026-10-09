@@ -3,14 +3,14 @@
 #include "../crt_init.h"
 #include "version.h"
 
-void _start(void *arg)
+void _start(void)
 {
     crt_init_ssp();
     crt_init_tls();
 
     static struct solo5_start_info si;
 
-    platform_init(arg);
+    platform_init(NULL);
     si.cmdline = cmdline_parse(platform_cmdline());
 
     log(INFO, "            |      ___|\n");
@@ -20,8 +20,8 @@ void _start(void *arg)
     log(INFO, "Solo5: Bindings version %s\n", SOLO5_VERSION);
 
     mem_init();
-    block_init(arg);
-    net_init(arg);
+    block_init();
+    net_init();
 
     mem_lock_heap(&si.heap_start, &si.heap_size);
     solo5_exit(solo5_app_main(&si));

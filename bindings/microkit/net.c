@@ -3,9 +3,9 @@
 
 static const struct mft *mft;
 
-void net_init(struct mkt_boot_info *bi)
+void net_init(void)
 {
-    mft = bi->mft;
+    mft = microkit_manifest();
     // TODO
 }
 

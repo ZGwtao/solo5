@@ -3,9 +3,9 @@
 
 static const struct mft *mft;
 
-void block_init(struct mkt_boot_info *bi)
+void block_init(void)
 {
-    mft = bi->mft;
+    mft = microkit_manifest();
 }
 
 solo5_result_t solo5_block_acquire(const char *name, solo5_handle_t *handle,

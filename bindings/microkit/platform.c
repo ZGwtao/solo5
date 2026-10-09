@@ -6,11 +6,7 @@ static uint64_t mem_size;
 
 void platform_init(const void *arg)
 {
-    const struct mkt_boot_info *bi = arg;
-
-    cmdline = bi->cmdline;
-    mem_size = bi->mem_size;
-
+    (void)arg;
     // TODO
     // try initialising all sddf-based device here
     // (1) timer, (2) serial, (3) network, (4) block
@@ -23,7 +19,12 @@ const char *platform_cmdline(void)
 
 uint64_t platform_mem_size(void)
 {
-    return mem_size;
+    return MICROKIT_HEAP_BASE + MICROKIT_HEAP_SIZE;
+}
+
+const struct mft *microkit_manifest(void)
+{
+    return mft;
 }
 
 void platform_exit(int status, void *cookie __attribute__((unused)))
