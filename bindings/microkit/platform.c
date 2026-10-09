@@ -57,7 +57,8 @@ int platform_puts(const char *buf, int n)
 int platform_set_tls_base(uint64_t base)
 {
 #if defined(__x86_64__)
-    // TODO
+    /* seL4 enables CR4.FSGSBASE for native x86_64 PDs. */
+    __asm__ __volatile__("wrfsbase %0" : : "r"(base));
     return 0;
 #elif defined(__aarch64__)
     __asm__ __volatile__("msr tpidr_el0, %0" : : "r"(base));
