@@ -9,9 +9,7 @@ static const struct mft *mft;
 void platform_init(const void *arg)
 {
     (void)arg;
-    // TODO
-    // try initialising all sddf-based device here
-    // (1) timer, (2) serial, (3) network, (4) block
+    assert(sddf_serial_init() == 0);
 }
 
 const char *platform_cmdline(void)
@@ -45,9 +43,15 @@ void platform_exit(int status, void *cookie __attribute__((unused)))
 
 int platform_puts(const char *buf, int n)
 {
-    for (int i = 0; i < n; i++)
-        seL4_DebugPutChar(buf[i]);
-    return n;
+    int written = sddf_serial_write(buf, n);
+
+    /* Keep early initialisation and configuration failures observable. */
+    if (written < 0) {
+        for (int i = 0; i < n; i++)
+            seL4_DebugPutChar(buf[i]);
+        return n;
+    }
+    return written;
 }
 
 int platform_set_tls_base(uint64_t base)

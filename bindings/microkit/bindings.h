@@ -69,6 +69,10 @@ const struct mft *microkit_manifest(void);
 
 #define MICROKIT_INPUT_CAP 1
 #define MICROKIT_REPLY_CAP 4
+
+int sddf_serial_init(void);
+int sddf_serial_write(const char *buf, int n);
+
 #define MICROKIT_HEAP_BASE 0x200000000ULL
 #define MICROKIT_HEAP_SIZE 0x4000000ULL
 

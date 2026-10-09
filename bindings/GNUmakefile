@@ -51,7 +51,7 @@ spt_SRCS := spt/start.c \
 
 mkt_SRCS := microkit/start.c \
     microkit/bindings.c microkit/block.c microkit/net.c microkit/platform.c \
-    microkit/memory.c microkit/runtime.c microkit/yield.c \
+    microkit/memory.c microkit/runtime.c microkit/serial.c microkit/yield.c \
     abort.c crt.c printf.c lib.c exit.c log.c cmdline.c tls.c mft.c
 
 ifdef CONFIG_MKT

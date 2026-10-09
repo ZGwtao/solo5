@@ -96,6 +96,10 @@ SECTIONS {
         *(.got.plt)
         *(.got)
     } :data
+    .serial_client_config :
+    {
+        KEEP(*(.serial_client_config))
+    } :data
     .data :
     {
         *(.data)
