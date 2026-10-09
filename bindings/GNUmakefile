@@ -54,6 +54,10 @@ mkt_SRCS := microkit/start.c \
     microkit/memory.c microkit/yield.c \
     abort.c crt.c printf.c lib.c exit.c log.c cmdline.c tls.c mft.c
 
+ifdef CONFIG_MKT
+CPPFLAGS += $(MKT_CPPFLAGS)
+endif
+
 virtio_SRCS := virtio/boot.S virtio/start.c $(common_SRCS) \
     virtio/platform.c virtio/platform_intr.c \
     virtio/pci.c virtio/serial.c virtio/time.c virtio/virtio_ring.c \
@@ -106,6 +110,7 @@ define LINK.bindings
 	$(LD) -r $(LDFLAGS) $^ -o $@
 	@echo "OBJCOPY $@"
 	$(OBJCOPY) -w -G solo5_\* -G _start\* \
+	    -G microkit_\* -G __sel4_ipc_buffer \
 	    -G $(SSP_GUARD_SYMBOL) -G $(SSP_FAIL_SYMBOL) \
 	    $@ $@
 endef
@@ -143,6 +148,7 @@ endif
 
 ifdef CONFIG_MKT
     mkt_OBJS := $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(mkt_SRCS)))
+    $(mkt_OBJS): CFLAGS += -std=gnu11
 
 solo5_mkt.o: $(mkt_OBJS)
 	$(LINK.bindings)

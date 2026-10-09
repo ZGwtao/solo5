@@ -5,7 +5,7 @@
 
 void _start(void)
 {
-    crt_init_ssp();
+    /* CNTVCT_EL0 is not exposed to native Microkit PDs on every platform. */
     crt_init_tls();
 
     static struct solo5_start_info si;

@@ -3,7 +3,7 @@
 
 void solo5_console_write(const char *buf, size_t size)
 {
-    // TODO
+    (void)platform_puts(buf, (int)size);
 }
 
 /* solo5_exit is in exit.c */

@@ -1,8 +1,21 @@
 
 #include "bindings.h"
 
-static const char *cmdline;
-static uint64_t mem_size;
+static const char cmdline[] = "Hello_Solo5";
+static const struct mft *mft;
+
+seL4_IPCBuffer *__sel4_ipc_buffer =
+    (seL4_IPCBuffer *)(seL4_UserVSpaceTop & ~((1ULL << seL4_PageBits) - 1ULL));
+
+/* Symbols patched by the Microkit image tool for every native PD. */
+char microkit_name[64];
+bool microkit_passive;
+seL4_Word microkit_irqs;
+seL4_Word microkit_notifications;
+seL4_Word microkit_pps;
+seL4_Word microkit_ioports;
+
+extern const struct mft1_note __solo5_mft1_note;
 
 void platform_init(const void *arg)
 {
@@ -29,12 +42,17 @@ const struct mft *microkit_manifest(void)
 
 void platform_exit(int status, void *cookie __attribute__((unused)))
 {
-    // TODO
+    (void)status;
+    for (;;) {
+        seL4_Word badge;
+        (void)seL4_Recv(MICROKIT_INPUT_CAP, &badge, MICROKIT_REPLY_CAP);
+    }
 }
 
 int platform_puts(const char *buf, int n)
 {
-    // TODO
+    for (int i = 0; i < n; i++)
+        seL4_DebugPutChar(buf[i]);
     return n;
 }
 
@@ -44,13 +62,9 @@ int platform_set_tls_base(uint64_t base)
     // TODO
     return 0;
 #elif defined(__aarch64__)
-    // TODO
+    __asm__ __volatile__("msr tpidr_el0, %0" : : "r"(base));
     return 0;
 #else
 #error Unsupported architecture
 #endif
 }
-
-// TODO, we probably need a cooperative scheduler somewhere?
-// or should this be provided by the LibOS instead of the bindings?
-// Should bindings layer provide scheduling interfaces?
