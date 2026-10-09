@@ -29,10 +29,3 @@ void sddf_timer_set_timeout_ns(solo5_time_t timeout)
         PANIC("sDDF timer is not initialized", NULL);
     sddf_timer_set_timeout(timer_channel, timeout);
 }
-
-seL4_Word sddf_timer_event_mask(void)
-{
-    if (!timer_ready)
-        PANIC("sDDF timer is not initialized", NULL);
-    return 1ULL << timer_channel;
-}

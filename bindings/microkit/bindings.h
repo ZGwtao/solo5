@@ -84,7 +84,9 @@ int sddf_serial_write(const char *buf, int n);
 int sddf_timer_init(void);
 solo5_time_t sddf_timer_monotonic(void);
 void sddf_timer_set_timeout_ns(solo5_time_t timeout);
-seL4_Word sddf_timer_event_mask(void);
+
+
+solo5_handle_set_t sddf_net_poll(void);
 
 #define MICROKIT_HEAP_BASE 0x200000000ULL
 #define MICROKIT_HEAP_SIZE 0x4000000ULL
