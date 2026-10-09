@@ -3,9 +3,32 @@
 #include "../crt_init.h"
 #include "version.h"
 
+#if defined(__aarch64__)
+/*
+ * The common Solo5 crt_init_ssp() reads CNTVCT_EL0, which seL4 does
+ * not expose to native PDs in this configuration. Use the exported
+ * physical counter, CNTPCT_EL0, instead.
+ */
+__attribute__((always_inline)) static inline void microkit_crt_init_ssp(void)
+{
+    uint64_t ticks0;
+    uint64_t ticks1;
+
+    __asm__ __volatile__("mrs %0, cntpct_el0" : "=r"(ticks0));
+    __asm__ __volatile__("mrs %0, cntpct_el0" : "=r"(ticks1));
+    // generate stack canary for basic stack-smashing
+    // @gt ?? this is not cryptographically safe
+    SSP_GUARD_SYMBOL = ticks0 + (ticks1 << 32UL);
+    SSP_GUARD_SYMBOL &= ~(uintptr_t)0xff00;
+}
+#else
+#define microkit_crt_init_ssp crt_init_ssp
+#endif
+
 void _start(void)
 {
-    /* CNTVCT_EL0 is not exposed to native Microkit PDs on every platform. */
+    // @gt ?? replace 'crt_init_ssp' for stack canary
+    microkit_crt_init_ssp();
     crt_init_tls();
 
     static struct solo5_start_info si;
