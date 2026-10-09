@@ -59,6 +59,14 @@ ifdef CONFIG_SPT
 all_TARGETS += $(test_NAME).spt
 endif
 
+ifdef CONFIG_MKT
+%.mkt: %.o manifest.o
+	@echo "CCLD $@"
+	$(CC) -z solo5-abi=mkt $< manifest.o -o $@
+
+all_TARGETS += $(test_NAME).mkt
+endif
+
 ifdef CONFIG_VIRTIO
 %.virtio: %.o manifest.o
 	@echo "CCLD $@"
