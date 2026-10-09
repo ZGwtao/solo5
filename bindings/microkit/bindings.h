@@ -74,7 +74,7 @@
 
 void block_init(void);
 void net_init(void);
-const struct mft *microkit_manifest(void);
+struct mft *microkit_manifest(void);
 
 #define MICROKIT_INPUT_CAP 1
 #define MICROKIT_REPLY_CAP 4
